@@ -3,81 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <title>Form Input Biaya</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      font-family: system-ui, Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
       padding: 20px;
     }
-    .box {
-      max-width: 400px;
+    .container {
+      max-width: 420px;
       margin: auto;
       background: #ffffff;
       padding: 20px;
-      border-radius: 12px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
     }
     label {
+      font-weight: 600;
+      margin-top: 14px;
       display: block;
-      margin-top: 12px;
-      font-weight: bold;
     }
-    input, select, textarea, button {
+    input, select, textarea {
       width: 100%;
       margin-top: 6px;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
     }
     textarea {
-      height: 80px;
+      min-height: 80px;
     }
     button {
-      margin-top: 20px;
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px;
+      font-size: 16px;
       background: #2563eb;
-      color: white;
+      color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
+    }
+    button:active {
+      background: #1e40af;
+    }
+    .msg {
+      margin-top: 12px;
+      text-align: center;
+      color: green;
     }
   </style>
 </head>
 
 <body>
-  <div class="box">
-    <h3>Form Input Biaya</h3>
 
-<form id="form">
+  <div class="container">
+    <h2>Form Input Biaya</h2>
+
+    <form id="formBiaya">
+
       <label>Nomor</label>
-      <input type="number" name="nomor" required>
+      <input
+        type="text"
+        name="nomor"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        placeholder="Masukkan nomor"
+        required
+      >
 
       <label>Jenis Biaya</label>
       <select name="jenis_biaya" required>
-        <option value="">-- Pilih --</option>
+        <option value="">-- Pilih Jenis Biaya --</option>
         <option value="Uang Harian">Uang Harian</option>
         <option value="Biaya Transport">Biaya Transport</option>
         <option value="Biaya Penginapan">Biaya Penginapan</option>
       </select>
 
       <label>Nominal</label>
-      <input type="number" name="nominal" required>
+      <input
+        type="text"
+        name="nominal"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        placeholder="Masukkan nominal"
+        required
+      >
 
       <label>Keterangan</label>
-      <textarea name="keteranga
+      <textarea
+        name="keterangan"
+        placeholder="Isi keterangan tambahan"
+      ></textarea>
 
-    <div id="status"></div>
+      <button type="submit">Simpan</button>
+    </form>
+
+    <div class="msg" id="msg"></div>
   </div>
 
 <script>
-document.getElementById("form").addEventListener("submit", function(e) {
+document.getElementById("formBiaya").addEventListener("submit", function(e) {
   e.preventDefault();
 
   fetch("https://script.google.com/macros/s/AKfycbww82EmIvq-tO8v8Cgu45NX9rPKb0BPdV-c3F-vYDryL4fiT7Bhl2i1zG9pgvYDxQ5Q/exec", {
     method: "POST",
     body: new FormData(this)
   })
-  .then(r => r.text())
+  .then(res => res.text())
   .then(() => {
-    document.getElementById("status").innerText = "Data berhasil disimpan";
+    document.getElementById("msg").innerText = "Data berhasil disimpan";
     this.reset();
   })
   .catch(() => alert("Gagal mengirim data"));
