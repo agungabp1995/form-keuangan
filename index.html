@@ -90,7 +90,7 @@ document.getElementById("formData").addEventListener("submit", function(e) {
   e.preventDefault();
   const data = new FormData(this);
 
-  fetch("PASTE_URL_WEB_APP_DISINI", {
+  fetch("https://script.google.com/macros/s/AKfycbww82EmIvq-tO8v8Cgu45NX9rPKb0BPdV-c3F-vYDryL4fiT7Bhl2i1zG9pgvYDxQ5Q/exec", {
     method: "POST",
     body: data
   })
