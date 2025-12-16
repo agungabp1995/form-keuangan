@@ -8,102 +8,84 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f4f6;
-      margin: 0;
-      padding: 16px;
-    }
-    .card {
-      max-width: 420px;
-      margin: auto;
-      background: white;
+      background: #f2f2f2;
       padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
+    .box {
+      max-width: 400px;
+      margin: auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
     }
     label {
-      font-weight: bold;
-      margin-top: 12px;
       display: block;
+      margin-top: 12px;
+      font-weight: bold;
     }
-    input, select, textarea {
+    input, select, textarea, button {
       width: 100%;
-      padding: 12px;
       margin-top: 6px;
+      padding: 10px;
       font-size: 16px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
     }
     textarea {
-      resize: vertical;
+      height: 80px;
     }
     button {
-      width: 100%;
-      padding: 14px;
       margin-top: 20px;
-      font-size: 16px;
-      border-radius: 12px;
-      border: none;
       background: #2563eb;
       color: white;
-      cursor: pointer;
-    }
-    .msg {
-      text-align: center;
-      margin-top: 12px;
-      color: green;
+      border: none;
+      border-radius: 8px;
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h2>Form Input Biaya</h2>
+  <div class="box">
+    <h3>Form Input Biaya</h3>
 
-    <form id="formData">
+    <form id="form">
       <label>Nomor</label>
-      <input type="number" name="nomor" inputmode="numeric" required>
+      <input type="number" name="nomor" required>
 
       <label>Jenis Biaya</label>
       <select name="jenis_biaya" required>
-        <option value="">-- Pilih Jenis Biaya --</option>
+        <option value="">-- Pilih --</option>
         <option value="Uang Harian">Uang Harian</option>
         <option value="Biaya Transport">Biaya Transport</option>
         <option value="Biaya Penginapan">Biaya Penginapan</option>
       </select>
 
       <label>Nominal</label>
-      <input type="number" name="nominal" inputmode="numeric" required>
+      <input type="number" name="nominal" required>
 
       <label>Keterangan</label>
-      <textarea name="keterangan" rows="3" placeholder="Isi keterangan tambahan"></textarea>
+      <textarea name="keterangan" placeholder="Isi keterangan di sini"></textarea>
 
       <button type="submit">Simpan</button>
     </form>
 
-    <div class="msg" id="msg"></div>
+    <div id="status"></div>
   </div>
 
 <script>
-document.getElementById("formData").addEventListener("submit", function(e) {
+document.getElementById("form").addEventListener("submit", function(e) {
   e.preventDefault();
-  const data = new FormData(this);
 
   fetch("https://script.google.com/macros/s/AKfycbww82EmIvq-tO8v8Cgu45NX9rPKb0BPdV-c3F-vYDryL4fiT7Bhl2i1zG9pgvYDxQ5Q/exec", {
     method: "POST",
-    body: data
+    body: new FormData(this)
   })
   .then(r => r.text())
   .then(() => {
-    document.getElementById("msg").innerText = "Data berhasil disimpan";
+    document.getElementById("status").innerText = "Data berhasil disimpan";
     this.reset();
   })
   .catch(() => alert("Gagal mengirim data"));
 });
 </script>
+
 </body>
 </html>
