@@ -29,7 +29,7 @@
       margin-top: 12px;
       display: block;
     }
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 12px;
       margin-top: 6px;
@@ -37,6 +37,9 @@
       border-radius: 10px;
       border: 1px solid #ccc;
       box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
     }
     button {
       width: 100%;
@@ -48,9 +51,6 @@
       background: #2563eb;
       color: white;
       cursor: pointer;
-    }
-    button:active {
-      background: #1e40af;
     }
     .msg {
       text-align: center;
@@ -78,6 +78,9 @@
 
       <label>Nominal</label>
       <input type="number" name="nominal" inputmode="numeric" required>
+
+      <label>Keterangan</label>
+      <textarea name="keterangan" rows="3" placeholder="Isi keterangan tambahan"></textarea>
 
       <button type="submit">Simpan</button>
     </form>
